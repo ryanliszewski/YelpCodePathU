@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -16,6 +16,10 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var filteredBusinesses: [Business]!
     
     var searchBar: UISearchBar = UISearchBar()
+    
+    var isMoreDataLoading = false
+    
+    var offset: Int? = 20
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +64,27 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
          }
          */
         
+    }
+    
+    
+    func loadMoreData(){
+        
+        Business.searchWithTerm(term: "Indian", sort: .distance, categories: [], deals: false, offset: offset, completion: { (businesses: [Business]?, error: Error? ) -> Void in
+            
+            if(businesses! != []){
+                for business in businesses! {
+                    self.businesses.append(business)
+                    print(business)
+                }
+            }
+            
+            
+            self.filteredBusinesses = self.businesses
+         
+            self.isMoreDataLoading = false
+            self.tableView.reloadData()
+            
+        })
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -109,6 +134,21 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         self.searchBar.resignFirstResponder()
     }
    
+    
+    public func scrollViewDidScroll(_ scrollView: UIScrollView){
+        
+        if(!isMoreDataLoading){
+            
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging){
+                isMoreDataLoading = true
+                self.offset! = self.offset! + 20
+                loadMoreData()
+            }
+        }
+    }
     
     
     /*

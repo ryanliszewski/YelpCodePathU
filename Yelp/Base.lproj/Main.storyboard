@@ -21,8 +21,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="139" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Ce-Lz-TrD">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0oW-R8-cmG">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </scrollView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="139" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Ce-Lz-TrD">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BusinessCell" rowHeight="139" id="izr-3d-Yk6" userLabel="BusinessCell" customClass="BusinessCell" customModule="Yelp" customModuleProvider="target">
@@ -122,10 +125,14 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="0oW-R8-cmG" firstAttribute="leading" secondItem="XhR-oz-92f" secondAttribute="leading" id="RXC-AA-Ywd"/>
                             <constraint firstAttribute="trailing" secondItem="0Ce-Lz-TrD" secondAttribute="trailing" id="V5O-oL-x7X"/>
-                            <constraint firstItem="0Ce-Lz-TrD" firstAttribute="top" secondItem="XhR-oz-92f" secondAttribute="top" id="Z7E-Ya-ceM"/>
+                            <constraint firstItem="VBY-gq-v8E" firstAttribute="top" secondItem="0oW-R8-cmG" secondAttribute="bottom" id="VKt-h2-TcH"/>
+                            <constraint firstItem="0Ce-Lz-TrD" firstAttribute="top" secondItem="XhR-oz-92f" secondAttribute="top" constant="64" id="Z7E-Ya-ceM"/>
                             <constraint firstItem="0Ce-Lz-TrD" firstAttribute="leading" secondItem="XhR-oz-92f" secondAttribute="leading" id="bkk-Kc-uf8"/>
                             <constraint firstItem="VBY-gq-v8E" firstAttribute="top" secondItem="0Ce-Lz-TrD" secondAttribute="bottom" id="cA6-xP-qqx"/>
+                            <constraint firstAttribute="trailing" secondItem="0oW-R8-cmG" secondAttribute="trailing" id="jCz-Fq-HeL"/>
+                            <constraint firstItem="0oW-R8-cmG" firstAttribute="top" secondItem="XhR-oz-92f" secondAttribute="top" id="tNW-gN-iNc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="faA-F8-dm8"/>
