@@ -19,7 +19,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var isMoreDataLoading = false
     
-    var offset: Int? = 20
+    var offset: Int? = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,18 +69,12 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func loadMoreData(){
         
+        self.offset! = self.offset! + 20
         Business.searchWithTerm(term: "Indian", sort: .distance, categories: [], deals: false, offset: offset, completion: { (businesses: [Business]?, error: Error? ) -> Void in
             
-            if(businesses! != []){
-                for business in businesses! {
-                    self.businesses.append(business)
-                    print(business)
-                }
-            }
             
-            
+            self.businesses.append(contentsOf: businesses!)
             self.filteredBusinesses = self.businesses
-         
             self.isMoreDataLoading = false
             self.tableView.reloadData()
             
@@ -143,8 +137,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
             
             if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging){
+                print("test")
                 isMoreDataLoading = true
-                self.offset! = self.offset! + 20
                 loadMoreData()
             }
         }
