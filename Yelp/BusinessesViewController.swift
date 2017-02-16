@@ -8,18 +8,39 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+    
+    @IBOutlet weak var tableView: UITableView!
     
     var businesses: [Business]!
+    var filteredBusinesses: [Business]!
+    
+    var searchBar: UISearchBar = UISearchBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120 
+        
+        self.navigationItem.titleView = searchBar
+        self.searchBar.searchBarStyle = .prominent
+        self.searchBar.placeholder = "Restuarant"
+        searchBar.delegate = self
+        
+        
+        Business.searchWithTerm(term: "Indian", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
+        
             self.businesses = businesses
+            self.filteredBusinesses = self.businesses
+            
             if let businesses = businesses {
                 for business in businesses {
+                    self.tableView.reloadData()
+                    
                     print(business.name!)
                     print(business.address!)
                 }
@@ -41,10 +62,54 @@ class BusinessesViewController: UIViewController {
         
     }
     
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if businesses != nil {
+            return filteredBusinesses.count
+        } else {
+            return 0
+        }
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier:"BusinessCell", for: indexPath) 
+            as! BusinessCell
+        
+        
+        cell.business = filteredBusinesses[indexPath.row]
+        
+        return cell
+
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredBusinesses = searchText.isEmpty ? businesses : businesses!.filter({(business: Business) -> Bool in
+            
+            return (business.name!).range(of: searchText, options: .caseInsensitive) != nil
+        })
+        tableView.reloadData()
+    }
+    
+    public func searchBarTextDidBeginEditing(_ searchBar: UISearchBar){
+        self.searchBar.showsCancelButton = true
+    }
+    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        self.filteredBusinesses = businesses
+        self.tableView.reloadData()
+    }
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
+        self.searchBar.showsCancelButton = false
+        self.searchBar.resignFirstResponder()
+    }
+   
+    
     
     /*
      // MARK: - Navigation
