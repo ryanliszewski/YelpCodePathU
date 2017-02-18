@@ -50,6 +50,10 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         locationManager.distanceFilter = 200
         locationManager.requestWhenInUseAuthorization()
         
+        let selectedColor = #colorLiteral(red: 0.768627451, green: 0.07058823529, blue: 0, alpha: 1)
+        
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: selectedColor], for: .selected)
+        
         
         
         
@@ -140,6 +144,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             let span = MKCoordinateSpanMake(0.1, 0.1)
             let region = MKCoordinateRegionMake(location.coordinate, span)
             mapView.setRegion(region, animated: true)
+            mapView.showsUserLocation = true
             
         }
     }
@@ -173,7 +178,12 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let identifier = "customAnnotationView"
-        // custom pin annotation
+      
+        //users location 
+        if annotation is MKUserLocation{
+            return nil
+        }
+        
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView
         if (annotationView == nil) {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
@@ -274,6 +284,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         self.searchBar.resignFirstResponder()
     }
    
+    
     /*
         SCROLLVIEW
      

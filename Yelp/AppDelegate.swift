@@ -11,15 +11,43 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    
     var window: UIWindow?
-    
-    //let window = UIWindow(frame: UIScreen.mainScreen().bounds)
-    
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let searchNavigationController = storyBoard.instantiateViewController(withIdentifier: "BusinessNavigationController") as! UINavigationController
+        //let searchViewController = searchNavigationController.topViewController as! BusinessesViewController
+        
+        let nearbyNavigationController = storyBoard.instantiateViewController(withIdentifier: "NearbyViewController") 
+        //let nearbyViewController = nearbyNavigationController.topViewController as! NearbyViewController
+        
+        
+        searchNavigationController.tabBarItem.title = "search"
+        
+        //searchNavigationController.navigationBar.barTintColor = #colorLiteral(red: 0.768627451, green: 0.07058823529, blue: 0, alpha: 1)
+        
+        //searchNavigationController.tabBar
+   
+        nearbyNavigationController.tabBarItem.title = "Nearby"
+        nearbyNavigationController.tabBarItem.image = #imageLiteral(resourceName: "nearbyIcon")
+        
+        //nearbyNavigationController.tabBarItem.setTitleTextAttributes([NSForegroundColorAttributeName: #colorLiteral(red: 0.768627451, green: 0.07058823529, blue: 0, alpha: 1)], for: .selected)
+        
+        
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [nearbyNavigationController, searchNavigationController]
+        
+        //tabBarController.tabBarItem.setTitleTextAttributes([NSForegroundColorAttributeName: #colorLiteral(red: 0.768627451, green: 0.07058823529, blue: 0, alpha: 1)], for: .selected)
+        
+        UITabBar.appearance().tintColor = #colorLiteral(red: 0.768627451, green: 0.07058823529, blue: 0, alpha: 1)
+        window?.rootViewController = tabBarController
+        window?.makeKeyAndVisible()
+ 
         return true
     }
 

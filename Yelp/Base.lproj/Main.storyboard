@@ -12,7 +12,7 @@
         <!--Businesses View Controller-->
         <scene sceneID="5L9-Uz-lNK">
             <objects>
-                <viewController id="2xI-yr-O5N" customClass="BusinessesViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BusinessViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2xI-yr-O5N" customClass="BusinessesViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hR0-74-jRp"/>
                         <viewControllerLayoutGuide type="bottom" id="VBY-gq-v8E"/>
@@ -158,7 +158,8 @@
         <!--Nearby View Controller-->
         <scene sceneID="78p-wB-Uys">
             <objects>
-                <viewController id="Ytc-Mm-u3r" customClass="NearbyViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bmg-86-mPE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="NearbyViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ytc-Mm-u3r" customClass="NearbyViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Zcm-ck-XRP"/>
                         <viewControllerLayoutGuide type="bottom" id="Xvi-cQ-UIO"/>
@@ -168,10 +169,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="pUs-0N-dWK"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bmg-86-mPE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2353" y="1105"/>
+            <point key="canvasLocation" x="2353" y="1101"/>
         </scene>
         <!--Business Detail View Controller-->
         <scene sceneID="3e1-BX-Ixp">
@@ -296,9 +297,9 @@
         <!--Navigation Controller-->
         <scene sceneID="dr0-A1-9p5">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Rju-N7-Dcq" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="BusinessNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Rju-N7-Dcq" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="tgj-qj-xI9">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tgj-qj-xI9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.76862745098039209" green="0.070588235294117646" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -311,6 +312,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIO-0L-jXk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1413.5999999999999" y="357.57121439280365"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="udi-Ai-gqa">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1yg-mp-LMU" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bv5-pU-et9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.76862745099999996" green="0.070588235289999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Ytc-Mm-u3r" kind="relationship" relationship="rootViewController" id="Qds-g1-wAK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5ff-cw-OPd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1414" y="1102"/>
         </scene>
     </scenes>
 </document>
