@@ -29,6 +29,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var offset: Int? = 0
     var limit: Int? = 20
     
+    var lat: Double!
+    var long: Double!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,12 +39,15 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
+        tableView.layoutIfNeeded()
+        
         
         mapView.delegate = self
+        mapView.layoutIfNeeded()
  
         self.navigationItem.titleView = searchBar
         self.searchBar.searchBarStyle = .prominent
-        self.searchBar.placeholder = "Restuarant"
+        self.searchBar.placeholder = "Search"
         searchBar.delegate = self
         
         locationManager = CLLocationManager()
@@ -55,6 +61,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: selectedColor], for: .selected)
         
         
+        lat = 37.7833
+        long = -122.4167
         
         
         //let centerLocation = CLLocation(latitude: 37.7833, longitude: -122.4167)
@@ -117,7 +125,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         UIView.transition(from: self.tableView, to: self.mapView, duration: 0.3, options: .transitionFlipFromTop, completion: nil)
         currentView = self.mapView
+        
         populateMapView()
+        mapView.reloadInputViews()
     }
     
     func loadTableView() {
@@ -145,7 +155,11 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             let region = MKCoordinateRegionMake(location.coordinate, span)
             mapView.setRegion(region, animated: true)
             mapView.showsUserLocation = true
-            
+            var locValue:CLLocationCoordinate2D = manager.location!.coordinate
+            long = locValue.longitude
+            lat = locValue.latitude
+            print(long)
+            print(lat)
         }
     }
     
@@ -179,7 +193,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let identifier = "customAnnotationView"
       
-        //users location 
+        //users location
         if annotation is MKUserLocation{
             return nil
         }
@@ -225,9 +239,15 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         })
     }
     
+    /*
+     
+        TABLEVIEW Functions
+ 
+ 
+    */
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if businesses != nil {
-            print("help")
             return filteredBusinesses.count
         } else {
             print("error")
@@ -241,6 +261,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             as! BusinessCell
         
         cell.business = filteredBusinesses[indexPath.row]
+        cell.selectionStyle = .none
         
         return cell
     }
@@ -299,27 +320,24 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
             
             if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging){
-                print("test")
                 isMoreDataLoading = true
                 loadMoreData()
             }
         }
     }
     
-    
-    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
-     func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destinationViewController.
      // Pass the selected object to the new view controller.
-        let cell = sender as! UITableViewCell
-        let indexPath = tableView.indexPath(for: cell)
-        let business = filteredBusinesses[indexPath!.row]
         
         let viewController = segue.destination as! BusinessDetailViewController
         
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)
+        let business = filteredBusinesses[indexPath!.row]
         viewController.business = business
         
      }

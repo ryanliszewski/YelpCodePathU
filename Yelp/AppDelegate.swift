@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let searchNavigationController = storyBoard.instantiateViewController(withIdentifier: "BusinessNavigationController") as! UINavigationController
         //let searchViewController = searchNavigationController.topViewController as! BusinessesViewController
         
-        let nearbyNavigationController = storyBoard.instantiateViewController(withIdentifier: "NearbyViewController") 
+        let nearbyNavigationController = storyBoard.instantiateViewController(withIdentifier: "NearbyViewController")  as! UINavigationController
         //let nearbyViewController = nearbyNavigationController.topViewController as! NearbyViewController
         
         
@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [nearbyNavigationController, searchNavigationController]
+        tabBarController.viewControllers = [searchNavigationController, nearbyNavigationController]
         
         //tabBarController.tabBarItem.setTitleTextAttributes([NSForegroundColorAttributeName: #colorLiteral(red: 0.768627451, green: 0.07058823529, blue: 0, alpha: 1)], for: .selected)
         

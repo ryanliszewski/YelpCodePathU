@@ -26,6 +26,17 @@ class BusinessDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+
+        titleLabel.text = business.name
+        descriptionLabel.text = business.categories
+        distanceLabel.text = business.distance
+        ratingView.setImageWith(business.ratingImageURL!)
+        
+        
+        
+        
 
         // Do any additional setup after loading the view.
     }

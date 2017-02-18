@@ -8,10 +8,24 @@
 
 import UIKit
 
-class NearbyViewController: UIViewController {
+class NearbyViewController: UIViewController, UISearchBarDelegate {
 
+    
+    var searchBar : UISearchBar = UISearchBar()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        self.navigationItem.titleView = searchBar
+        self.searchBar.searchBarStyle = .prominent
+        self.searchBar.placeholder = "Search"
+        searchBar.delegate = self
+        navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.768627451, green: 0.07058823529, blue: 0, alpha: 1)
+        
+        
 
         // Do any additional setup after loading the view.
     }

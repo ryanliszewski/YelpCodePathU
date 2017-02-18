@@ -123,7 +123,7 @@
                                             <outlet property="profilePosterView" destination="z24-dJ-O7K" id="WtF-Ij-VyE"/>
                                             <outlet property="ratingView" destination="PI7-V8-qbY" id="0s1-sd-PtW"/>
                                             <outlet property="titleLabel" destination="Lo8-Jj-sXe" id="q7C-Mu-KnR"/>
-                                            <segue destination="JVZ-ly-l2h" kind="show" id="r6z-db-dyC"/>
+                                            <segue destination="JVZ-ly-l2h" kind="show" id="SNP-IF-AdS"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -159,7 +159,7 @@
         <scene sceneID="78p-wB-Uys">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmg-86-mPE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="NearbyViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ytc-Mm-u3r" customClass="NearbyViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ytc-Mm-u3r" customClass="NearbyViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Zcm-ck-XRP"/>
                         <viewControllerLayoutGuide type="bottom" id="Xvi-cQ-UIO"/>
@@ -226,18 +226,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MOG-3h-EC5">
-                                <rect key="frame" x="0.0" y="216" width="375" height="395"/>
+                                <rect key="frame" x="0.0" y="216" width="375" height="180"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yo7-pI-Re0">
-                                <rect key="frame" x="0.0" y="613" width="375" height="54"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Address "/>
-                                <connections>
-                                    <action selector="addressButtonTouched:" destination="JVZ-ly-l2h" eventType="touchUpInside" id="95K-1t-5XI"/>
-                                    <segue destination="lf4-kB-OeB" kind="show" id="mOX-ir-Rkd"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PZU-m8-gLz">
                                 <rect key="frame" x="16" y="85" width="129" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -252,6 +243,15 @@
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yo7-pI-Re0">
+                                <rect key="frame" x="0.0" y="396" width="375" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Address "/>
+                                <connections>
+                                    <action selector="addressButtonTouched:" destination="JVZ-ly-l2h" eventType="touchUpInside" id="95K-1t-5XI"/>
+                                    <segue destination="lf4-kB-OeB" kind="show" id="mOX-ir-Rkd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -316,16 +316,16 @@
         <!--Navigation Controller-->
         <scene sceneID="udi-Ai-gqa">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1yg-mp-LMU" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NearbyViewController" automaticallyAdjustsScrollViewInsets="NO" id="1yg-mp-LMU" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bv5-pU-et9">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bv5-pU-et9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.76862745099999996" green="0.070588235289999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Ytc-Mm-u3r" kind="relationship" relationship="rootViewController" id="Qds-g1-wAK"/>
+                        <segue destination="Ytc-Mm-u3r" kind="relationship" relationship="rootViewController" id="hgA-bO-aUa"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ff-cw-OPd" userLabel="First Responder" sceneMemberID="firstResponder"/>
