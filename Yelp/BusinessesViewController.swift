@@ -148,6 +148,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         UIView.transition(from: self.mapView, to: self.tableView, duration: 0.3, options: .transitionFlipFromRight, completion: nil)
         self.navigationItem.rightBarButtonItem?.title = "Map"
         self.tableView.reloadData()
+        
         currentView = self.tableView
         
     }
@@ -320,7 +321,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         self.searchBar.showsCancelButton = false
         self.searchBar.resignFirstResponder()
         category = searchBar.text
-        filteredBusinesses = []
+        yelpSearch()
         loadMoreData()
     }
    
