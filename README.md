@@ -14,14 +14,41 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [ ] Search results page
-- [ ] Infinite scroll for restaurant results.
-- [ ] Implement map view of restaurant results.
-- [ ] Implement the restaurant detail page.
+- [x] Search results page
+- [x] Infinite scroll for restaurant results.
+- [x] Implement map view of restaurant results.
+- [x] Implement the restaurant detail page.
+    - [x] Displays blurred image of restaurant (Yelp app feature)
 
 The following **additional** features are implemented:
+- [x] Custommized The Navigation Bar
+    - [x] Same Red Color of the 
+    - [x] Back font colors are all white. 
+- [x] Added and Customized Tab Bar
+    - [x] Looks nearly identical to Yelps. 
+    - [x] Added icons for each bar. 
+    - [x] The tab bars are red when slected and grey when not. (Yelp App Feature)
+- [x] Get user's location'
+    - [x] Displays user location on both map views 
+- [x] Flips between the list of restuarants and the mapview of all the restuarants just like the real Yelp App.
+    - [x] Animates from left to right and right to left. (Yelp app feature)
+    - [x] Toggles between a tableview and mapview so the same data from the Yelp API call is used 
+    - [x] Toggles between display "map" and "List" when in each of the respective views. (Yelp App feature)
+    - [x] Text font is customized to be white. (Yelp App feature)
+- [x] Added a Nearby Page 
+    - [x] Displays a table view of three categories. 
+    - [x] When you click one it automatically searches and brings you to the restuarant result page 
+    - [x] Displays the category in the search bar 
+    - [x] Can search by term with the search bar 
+- [x] Added a webview for each restuarant from the detail page 
+- [x] Added appicon 
+
 
 - [ ] List anything else that you can get done to improve the app functionality!
+- [x] Need to add progress indicators 
+- [x] Need to fix autolayout for other pages 
+- [x] Clean up Code
+- [x] Add Launch Screen 
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 

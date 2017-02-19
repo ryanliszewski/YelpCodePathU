@@ -35,6 +35,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var category: String!
     var term: String!
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,6 +70,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if(category == nil){
             category = "food"
+            self.searchBar.placeholder = "Search..."
+        }else{
+            self.searchBar.placeholder = category
         }
         
         lat = 37.7833
@@ -315,6 +320,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         self.searchBar.showsCancelButton = false
         self.searchBar.resignFirstResponder()
         category = searchBar.text
+        filteredBusinesses = []
         loadMoreData()
     }
    

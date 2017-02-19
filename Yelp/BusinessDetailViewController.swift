@@ -20,7 +20,9 @@ class BusinessDetailViewController: UIViewController, CLLocationManagerDelegate,
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var moneyLabel: UILabel!
     @IBOutlet weak var posterView: UIImageView!
-    @IBOutlet weak var addressLabel: UIButton!
+    @IBOutlet weak var addressLabel: UILabel!
+   
+
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -36,6 +38,7 @@ class BusinessDetailViewController: UIViewController, CLLocationManagerDelegate,
         distanceLabel.text = business.distance
         ratingView.setImageWith(business.ratingImageURL!)
         posterView.setImageWith(business.imageURL!)
+        addressLabel.text = business.address
         
 
         self.navigationItem.backBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
