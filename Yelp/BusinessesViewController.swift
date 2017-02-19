@@ -32,6 +32,9 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     var lat: Double!
     var long: Double!
     
+    var category: String!
+    var term: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,11 +47,15 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         mapView.delegate = self
         mapView.layoutIfNeeded()
- 
+        
+        self.navigationItem.backBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.navigationItem.titleView = searchBar
         self.searchBar.searchBarStyle = .prominent
         self.searchBar.placeholder = "Search"
         searchBar.delegate = self
+        searchBar.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
+      
         
         locationManager = CLLocationManager()
         locationManager.delegate = self
@@ -57,25 +64,26 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         locationManager.requestWhenInUseAuthorization()
         
         let selectedColor = #colorLiteral(red: 0.768627451, green: 0.07058823529, blue: 0, alpha: 1)
-        
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: selectedColor], for: .selected)
         
+        if(category == nil){
+            category = "food"
+        }
         
         lat = 37.7833
         long = -122.4167
+        
+        //self.navigationItem.rightBarButtonItem = nil
+        
         
         
         //let centerLocation = CLLocation(latitude: 37.7833, longitude: -122.4167)
         
         //goToLocation(centerLocation)
         loadTableView()
-        yelpSearch()
+        //yelpSearch()
+        loadMoreData()
         
-        
-    
-
-        
-
         
         /* Example of Yelp search with more search options specified
          Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -91,7 +99,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func yelpSearch(){
-        Business.searchWithTerm(term: "Indian", completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "\(category!)", completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.filteredBusinesses = self.businesses
             
@@ -123,17 +131,20 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func loadMapView(){
         
-        UIView.transition(from: self.tableView, to: self.mapView, duration: 0.3, options: .transitionFlipFromTop, completion: nil)
+        UIView.transition(from: self.tableView, to: self.mapView, duration: 0.3, options: .transitionFlipFromLeft, completion: nil)
         currentView = self.mapView
         
+        self.navigationItem.rightBarButtonItem?.title = "List"
         populateMapView()
         mapView.reloadInputViews()
     }
     
     func loadTableView() {
-        UIView.transition(from: self.mapView, to: self.tableView, duration: 0.3, options: .transitionFlipFromBottom, completion: nil)
+        UIView.transition(from: self.mapView, to: self.tableView, duration: 0.3, options: .transitionFlipFromRight, completion: nil)
+        self.navigationItem.rightBarButtonItem?.title = "Map"
         self.tableView.reloadData()
         currentView = self.tableView
+        
     }
     
     
@@ -179,6 +190,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = coordinate.coordinate
                     annotation.title = title
+                    print(title)
                     self.mapView.addAnnotation(annotation)
                 }
             }
@@ -190,38 +202,42 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let identifier = "customAnnotationView"
-      
-        //users location
-        if annotation is MKUserLocation{
-            return nil
-        }
-        
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView
-        if (annotationView == nil) {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-        }
-        else {
-            annotationView!.annotation = annotation
-        }
-        annotationView!.pinColor = MKPinAnnotationColor(rawValue: UInt(GL_RED))!
-        
-        return annotationView
-    }
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        let identifier = "customAnnotationView"
+//      
+//        //users location
+//        if annotation is MKUserLocation{
+//            return nil
+//        }
+//        
+//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView
+//        if (annotationView == nil) {
+//            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+//        }
+//        else {
+//            annotationView!.annotation = annotation
+//        }
+//        //annotationView!.pinColor = MKPinAnnotationColor(rawValue: UInt(GL_RED))!
+//        
+//        return annotationView
+//    }
     
     
     
     
     func loadMoreData(){
         
-        self.offset! = self.offset! + 20
-        Business.searchWithTerm(term: "food", sort: YelpSortMode(rawValue: 0) , categories: [], limit: limit, deals: false, offset: offset, completion: { (businesses: [Business]?, error: Error? ) -> Void in
+        
+        print(category)
+        Business.searchWithTerm(term: "\(category!)", sort: YelpSortMode(rawValue: 0) , categories: [], limit: limit, deals: false, offset: offset, completion: { (businesses: [Business]?, error: Error? ) -> Void in
             
+            if(self.businesses == nil){
+                self.businesses = businesses
+            } else {
+                self.businesses.append(contentsOf: businesses!)
+            }
             
-            self.businesses.append(contentsOf: businesses!)
-            
-            
+          
             self.filteredBusinesses = self.businesses
             self.isMoreDataLoading = false
             
@@ -266,11 +282,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
-    
-    
-    
-    
-    
     /*
         SEARCH FUNCTIONS
     */
@@ -303,6 +314,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     public func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
         self.searchBar.showsCancelButton = false
         self.searchBar.resignFirstResponder()
+        category = searchBar.text
+        loadMoreData()
     }
    
     
@@ -321,6 +334,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             
             if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging){
                 isMoreDataLoading = true
+                self.offset! = self.offset! + 20
                 loadMoreData()
             }
         }
