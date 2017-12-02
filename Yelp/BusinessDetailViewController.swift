@@ -32,6 +32,9 @@ class BusinessDetailViewController: UIViewController, CLLocationManagerDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+        let view = self.view
+        view?.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         
         titleLabel.text = business.name
         descriptionLabel.text = business.categories

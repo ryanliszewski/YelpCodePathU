@@ -43,12 +43,14 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 120
-        tableView.layoutIfNeeded()
+        tableView.estimatedRowHeight = 140
+        
+        
         
         
         mapView.delegate = self
-        mapView.layoutIfNeeded()
+        //mapView.layoutIfNeeded()
+        mapView.isHidden = true
         
         self.navigationItem.backBarButtonItem?.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.navigationItem.titleView = searchBar
@@ -125,7 +127,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if currentView == self.tableView   {
            print("loading map view")
-            loadMapView()
+           
+           loadMapView()
             
         } else if currentView == self.mapView {
             print("loading table view")
@@ -136,20 +139,32 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func loadMapView(){
         
+        mapView.isHidden = false
         UIView.transition(from: self.tableView, to: self.mapView, duration: 0.3, options: .transitionFlipFromLeft, completion: nil)
+        
+        tableView.isHidden = true
         currentView = self.mapView
+        print(currentView)
+        
         
         self.navigationItem.rightBarButtonItem?.title = "List"
         populateMapView()
-        mapView.reloadInputViews()
     }
     
     func loadTableView() {
-        UIView.transition(from: self.mapView, to: self.tableView, duration: 0.3, options: .transitionFlipFromRight, completion: nil)
+        tableView.isHidden = false
+      
+
+      
+      
+  
+            UIView.transition(from: self.mapView, to: self.tableView, duration: 0.3, options: .transitionFlipFromRight, completion: nil)
         self.navigationItem.rightBarButtonItem?.title = "Map"
-        self.tableView.reloadData()
         
+        mapView.isHidden = true 
         currentView = self.tableView
+        tableView.reloadData()
+        print(currentView)
         
     }
     
@@ -232,9 +247,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     func loadMoreData(){
-        
-        
-        print(category)
         Business.searchWithTerm(term: "\(category!)", sort: YelpSortMode(rawValue: 0) , categories: [], limit: limit, deals: false, offset: offset, completion: { (businesses: [Business]?, error: Error? ) -> Void in
             
             if(self.businesses == nil){
@@ -243,7 +255,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.businesses.append(contentsOf: businesses!)
             }
             
-          
             self.filteredBusinesses = self.businesses
             self.isMoreDataLoading = false
             
@@ -255,7 +266,6 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
                     print(business.address!)
                 }
             }
-
             self.tableView.reloadData()
             
         })
@@ -282,8 +292,10 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier:"BusinessCell", for: indexPath)
             as! BusinessCell
         
+        print("test")
         cell.business = filteredBusinesses[indexPath.row]
         cell.selectionStyle = .none
+        cell.bounds = CGRect(x: 0.0, y: 0.0, width: tableView.bounds.width, height: cell.bounds.width)
         
         return cell
     }

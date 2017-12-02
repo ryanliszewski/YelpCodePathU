@@ -15,12 +15,13 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 - [x] Search results page
-- [x] Infinite scroll for restaurant results.
-- [x] Implement map view of restaurant results.
+  - [x] Infinite scroll for restaurant results.
+  - [x] Implement map view of restaurant results.
 - [x] Implement the restaurant detail page.
-    - [x] Displays blurred image of restaurant (Yelp app feature)
+
 
 The following **additional** features are implemented:
+- [x] Displays blurred image of restaurant (Yelp app feature)
 - [x] Custommized The Navigation Bar
     - [x] Same Red Color of the 
     - [x] Back font colors are all white. 

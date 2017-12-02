@@ -34,17 +34,18 @@ class BusinessCell: UITableViewCell {
         }
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        titleLabel.preferredMaxLayoutWidth = titleLabel.frame.size.width
-        
-    }
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        titleLabel.preferredMaxLayoutWidth = titleLabel.frame.size.width
+//        
+//    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         profilePosterView.layer.cornerRadius = 3
         profilePosterView.clipsToBounds = true
-        titleLabel.preferredMaxLayoutWidth = titleLabel.frame.size.width
+        
+        //titleLabel.preferredMaxLayoutWidth = titleLabel.frame.size.width
         // Initialization code
     }
 
