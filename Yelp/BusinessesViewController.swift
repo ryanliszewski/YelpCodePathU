@@ -68,7 +68,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         locationManager.requestWhenInUseAuthorization()
         
         let selectedColor = #colorLiteral(red: 0.768627451, green: 0.07058823529, blue: 0, alpha: 1)
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: selectedColor], for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: selectedColor], for: .selected)
         
         if(category == nil){
             category = "food"
